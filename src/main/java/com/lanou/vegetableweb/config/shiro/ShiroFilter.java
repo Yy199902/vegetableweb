@@ -24,8 +24,10 @@ import java.util.logging.Filter;
 @Configuration
 public class ShiroFilter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     /**
      * shirFilter过滤器
+     *
      * @param securityManager
      * @return
      */
@@ -72,6 +74,7 @@ public class ShiroFilter {
         mySessionManager.setSessionDAO(redisSessionDAO());
         return mySessionManager;
     }
+
     /**
      * 配置shiro redisManager
      * <p>
@@ -129,10 +132,11 @@ public class ShiroFilter {
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
+
     @Bean
     @ConditionalOnMissingBean
-    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator(){
-        DefaultAdvisorAutoProxyCreator app=new DefaultAdvisorAutoProxyCreator();
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator app = new DefaultAdvisorAutoProxyCreator();
         app.setProxyTargetClass(true);
         return app;
 

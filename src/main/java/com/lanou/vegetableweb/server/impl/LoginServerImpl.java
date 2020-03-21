@@ -16,6 +16,7 @@ public class LoginServerImpl implements LoginServer {
 
     @Resource
     private LoginMapper loginMapper;
+
     @Override
     public SysUser getUser(SysUser user) {
         return loginMapper.getUser(user);

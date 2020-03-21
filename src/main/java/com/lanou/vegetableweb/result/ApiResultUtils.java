@@ -8,13 +8,11 @@ public class ApiResultUtils {
     private static final String DEFAULT_ERROR_MESSAGE = "error";
 
 
-
     public static ApiResult ok(Object data) {
         ApiResult k12Result = ok();
         k12Result.setData(data);
         return k12Result;
     }
-
 
 
     public static ApiResult ok() {

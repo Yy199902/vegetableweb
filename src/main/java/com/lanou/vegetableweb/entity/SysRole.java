@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class SysRole {
-    private  String permission;
+    private String permission;
 }

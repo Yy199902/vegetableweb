@@ -24,22 +24,24 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping(value = "/auth")
 @ResponseBody
 public class Login {
-   // 加密的字符串,相当于签名
+    // 加密的字符串,相当于签名
     private static final String SINGNATURE_TOKEN = "YUYIN";
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ApiResult submitLogin(String username, String password, HttpServletRequest request) {
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-            Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        Subject subject = SecurityUtils.getSubject();
         SecurityUtils.getSubject().login(token);
         SysUser user = (SysUser) subject.getPrincipal();
 
-        String encryptionKey= DigestUtils.md5DigestAsHex((SINGNATURE_TOKEN+user.getUsername()).getBytes());
+        String encryptionKey = DigestUtils.md5DigestAsHex((SINGNATURE_TOKEN + user.getUsername()).getBytes());
         System.out.println(encryptionKey);
 
-            return ApiResultUtils.ok();
+        return ApiResultUtils.ok();
 
 
     }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";

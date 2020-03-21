@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MyException extends RuntimeException  {
+public class MyException extends RuntimeException {
     private Integer code;
 
-    public MyException( int code, String message ) {
+    public MyException(int code, String message) {
         super(message);
         this.code = code;
     }

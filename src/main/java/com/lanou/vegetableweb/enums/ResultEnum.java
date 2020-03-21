@@ -9,9 +9,9 @@ public enum ResultEnum {
 
     UNLOGIN(201, "未登录"),
 
-    PASSWORDERROR(202,"密码或账户错误"),
+    PASSWORDERROR(202, "密码或账户错误"),
 
-    PROHIBIT(203,"账号已禁用");
+    PROHIBIT(203, "账号已禁用");
 
     private Integer code;
 

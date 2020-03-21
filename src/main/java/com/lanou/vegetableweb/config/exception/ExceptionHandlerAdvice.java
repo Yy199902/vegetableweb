@@ -30,21 +30,22 @@ public class ExceptionHandlerAdvice {
     @CrossOrigin
     public ApiResult myException(MyException ex) {
         logger.warn(ex.getMessage());
-       return ApiResultUtils.error(ex.getCode(),ex.getMessage());
+        return ApiResultUtils.error(ex.getCode(), ex.getMessage());
     }
 
     @ExceptionHandler(AccountException.class)
     @CrossOrigin
     public ApiResult authorizationException(AccountException ex) {
-        return ApiResultUtils.error(ResultEnum.PASSWORDERROR.getCode(),ResultEnum.PASSWORDERROR.getMsg());
+        return ApiResultUtils.error(ResultEnum.PASSWORDERROR.getCode(), ResultEnum.PASSWORDERROR.getMsg());
     }
 
     @ExceptionHandler(DisabledAccountException.class)
     @CrossOrigin
     public ApiResult DisabledAccountException(DisabledAccountException ex) {
 
-        return ApiResultUtils.error(ResultEnum.PROHIBIT.getCode(),ResultEnum.PROHIBIT.getMsg());
+        return ApiResultUtils.error(ResultEnum.PROHIBIT.getCode(), ResultEnum.PROHIBIT.getMsg());
     }
+
     @ExceptionHandler(AuthorizationException.class)
     @CrossOrigin
     public String authorizationException(AuthorizationException ex) {

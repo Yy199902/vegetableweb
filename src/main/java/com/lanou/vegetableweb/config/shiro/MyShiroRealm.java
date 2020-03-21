@@ -32,11 +32,10 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     /**
      * 认证信息.(身份验证) : Authentication 是用来验证用户身份
-     *
      */
     @SneakyThrows
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException  {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         logger.info("---------------- 执行 Shiro 凭证认证 ----------------------");
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         String name = token.getUsername();
@@ -45,8 +44,8 @@ public class MyShiroRealm extends AuthorizingRealm {
         user.setUsername(name);
         user.setPassword(password);
 
-        SysUser userInfo= loginServer.getUser(user);
-            if (userInfo != null) {
+        SysUser userInfo = loginServer.getUser(user);
+        if (userInfo != null) {
             // 用户为禁用状态
             if (userInfo.getStatus() != 1) {
                 throw new DisabledAccountException("账号已禁用！");
@@ -58,11 +57,11 @@ public class MyShiroRealm extends AuthorizingRealm {
                     getName()  //realm name
             );
 
-                Session session = SecurityUtils.getSubject().getSession();
-                session.setAttribute("username", userInfo.getUsername());
+            Session session = SecurityUtils.getSubject().getSession();
+            session.setAttribute("username", userInfo.getUsername());
             return authenticationInfo;
         }
-            logger.info("抛出异常");
+        logger.info("抛出异常");
         throw new AccountException("账号不存在！");
 
 
@@ -76,10 +75,9 @@ public class MyShiroRealm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         String userName = principals.getPrimaryPrincipal().toString().split(":")[0];
-        Set<String> role=loginServer.getRole(userName);
+        Set<String> role = loginServer.getRole(userName);
         info.setStringPermissions(role);
         return info;
-
 
 
     }

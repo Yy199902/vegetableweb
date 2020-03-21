@@ -8,33 +8,33 @@ import java.time.LocalTime;
 @Data
 public class SysUser implements Serializable {
 
-    private Integer id=0;
+    private Integer id = 0;
 
-    private  String username;
+    private String username;
 
-    private  String password;
+    private String password;
 
-    private  String nickname;
+    private String nickname;
 
-    private  String mobile;
+    private String mobile;
 
-    private  String email;
+    private String email;
 
-    private  String qq;
+    private String qq;
 
-    private LocalTime  birthday;
+    private LocalTime birthday;
 
     private int gender;
 
-    private  String avatar;
+    private String avatar;
 
-    private  String userType;
+    private String userType;
 
-    private  String regIp;
+    private String regIp;
 
-    private  String lastLoginIp;
+    private String lastLoginIp;
 
-    private LocalTime  lastLoginTime;
+    private LocalTime lastLoginTime;
 
     private int loginCount;
 
@@ -42,7 +42,7 @@ public class SysUser implements Serializable {
 
     private int status;
 
-    private LocalTime  createTime;
+    private LocalTime createTime;
 
-    private LocalTime  updateTime;
+    private LocalTime updateTime;
 }
