@@ -4,6 +4,7 @@ import com.lanou.vegetableweb.entity.SysUser;
 import com.lanou.vegetableweb.enums.ResultEnum;
 import com.lanou.vegetableweb.result.ApiResult;
 import com.lanou.vegetableweb.result.ApiResultUtils;
+import com.lanou.vegetableweb.utils.RedisPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -33,10 +34,8 @@ public class Login {
         Subject subject = SecurityUtils.getSubject();
         SecurityUtils.getSubject().login(token);
         SysUser user = (SysUser) subject.getPrincipal();
-
         String encryptionKey = DigestUtils.md5DigestAsHex((SINGNATURE_TOKEN + user.getUsername()).getBytes());
-        System.out.println(encryptionKey);
-
+        RedisPoolUtil.setEx(encryptionKey.substring(0,6),encryptionKey,1800);
         return ApiResultUtils.ok();
 
 
@@ -49,9 +48,8 @@ public class Login {
 
 
     @RequestMapping(value = "/role", method = RequestMethod.GET)
-    @RequiresPermissions("roles")
+    @RequiresPermissions("role")
     public String role() {
-
         System.out.println("进入");
         return "成功";
     }

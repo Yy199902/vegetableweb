@@ -19,14 +19,13 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Filter;
 
 @Configuration
-public class ShiroFilter {
+public class Filter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * shirFilter过滤器
+     * shiroFilter过滤器
      *
      * @param securityManager
      * @return
@@ -39,11 +38,16 @@ public class ShiroFilter {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
         //注意过滤器配置顺序 不能颠倒
-
+        HashMap<String, javax.servlet.Filter> filter = new HashMap<>();
+       filter.put("auth",  new TokenFilter());
+        shiroFilterFactoryBean.setFilters(filter);
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
         filterChainDefinitionMap.put("/shiro/logout2", "logout");
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/static/**", "anon");
+//        filterChainDefinitionMap.put("/auth/login", "anon");
+        filterChainDefinitionMap.put("/**", "auth");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
@@ -59,20 +63,7 @@ public class ShiroFilter {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
-        // 自定义session管理 使用redis
-        // 自定义session管理 使用redis
-        securityManager.setSessionManager(sessionManager());
-        // 自定义缓存实现 使用redis
-        securityManager.setCacheManager(cacheManager());
         return securityManager;
-    }
-
-    //自定义sessionManager
-    @Bean
-    public SessionManager sessionManager() {
-        SessionConfig mySessionManager = new SessionConfig();
-        mySessionManager.setSessionDAO(redisSessionDAO());
-        return mySessionManager;
     }
 
     /**
