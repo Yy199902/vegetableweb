@@ -16,7 +16,7 @@ public class RedisPool {
 
     private static String redisIp = "39.100.141.34";//redis服务端的ip
     private static Integer redisPort = 6379;//redis提供的接口
-    private static String password = "123456";//redis密码
+//    private static String password = "123456";//redis密码
 
     private static void initPool() {
         JedisPoolConfig config = new JedisPoolConfig();
@@ -26,7 +26,7 @@ public class RedisPool {
         config.setTestOnBorrow(testOnBorrow);
         config.setTestOnReturn(testReturn);
         config.setBlockWhenExhausted(true);//连接耗尽的时候，是否阻塞，false会抛出异常，true阻塞直到超时。默认为true。
-        pool = new JedisPool(config, redisIp, redisPort, 1000 * 2, password);
+        pool = new JedisPool(config, redisIp, redisPort, 1000 * 2);
     }
 
     static {
